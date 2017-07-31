@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kalinda.Configuration", "Kalinda.Configuration\Kalinda.Configuration.csproj", "{F2E2EF41-D877-4DD5-8AB9-F99CA6D83175}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kalinda.Extensions", "Kalinda.Extensions\Kalinda.Extensions.csproj", "{05E3D141-A446-4B89-8A15-7F90FCFC1899}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kalinda.Server", "Kalinda.Server\Kalinda.Server.csproj", "{78839A59-EA3F-439A-B9D5-CE75B944F191}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kalinda.ConsoleApp", "Kalinda.ConsoleApp\Kalinda.ConsoleApp.csproj", "{DABC0FCD-5AA5-4876-A715-3CB91395208E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2E2EF41-D877-4DD5-8AB9-F99CA6D83175}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2E2EF41-D877-4DD5-8AB9-F99CA6D83175}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2E2EF41-D877-4DD5-8AB9-F99CA6D83175}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2E2EF41-D877-4DD5-8AB9-F99CA6D83175}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05E3D141-A446-4B89-8A15-7F90FCFC1899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05E3D141-A446-4B89-8A15-7F90FCFC1899}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05E3D141-A446-4B89-8A15-7F90FCFC1899}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05E3D141-A446-4B89-8A15-7F90FCFC1899}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78839A59-EA3F-439A-B9D5-CE75B944F191}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78839A59-EA3F-439A-B9D5-CE75B944F191}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78839A59-EA3F-439A-B9D5-CE75B944F191}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78839A59-EA3F-439A-B9D5-CE75B944F191}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DABC0FCD-5AA5-4876-A715-3CB91395208E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DABC0FCD-5AA5-4876-A715-3CB91395208E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DABC0FCD-5AA5-4876-A715-3CB91395208E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DABC0FCD-5AA5-4876-A715-3CB91395208E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
