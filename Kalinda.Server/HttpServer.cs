@@ -13,7 +13,7 @@ namespace Kalinda.Server
         private readonly object _lockEventHandler = new object();
 
         private HttpServerState _state = HttpServerState.Stopped;
-        
+
         private int _totalServerTasks;
         private int _maxServerTasks = 1000;
         private int _minServerTasks = Environment.ProcessorCount / 2;
@@ -272,13 +272,13 @@ namespace Kalinda.Server
         // Events
 
         public Func<HttpListenerContext, Task> OnRequest
-        {          
+        {
             set
             {
                 EnsureHttpServerState(HttpServerState.Stopped);
 
                 lock (_lockEventHandler)
-                {                   
+                {
                     _OnRequest = value;
                 }
             }
@@ -350,14 +350,14 @@ namespace Kalinda.Server
             }
         }
 
+        // Synchronization and Multiprocessor Issues
+        // https://msdn.microsoft.com/en-us/library/windows/desktop/ms686355(v=vs.85).aspx
+
         private void OnRequestCompleted(RequestCompletedEventArgs e)
         {
-            var handler = _requestCompletedEvent;
-            if (handler == null) return;
-
             try
             {
-                handler(this, e);
+                Interlocked.CompareExchange<EventHandler<RequestCompletedEventArgs>>(ref _requestCompletedEvent, null, null)?.Invoke(this, e);
             }
             catch (Exception)
             {
@@ -366,27 +366,20 @@ namespace Kalinda.Server
 
         private void OnServerTaskCountChanged(int count)
         {
-            var handler = _serverTaskCountChangedEvent;
-            if (handler != null)
+            try
             {
-                try
-                {
-                    handler(this, count);
-                }
-                catch (Exception)
-                {
-                }
+                Interlocked.CompareExchange<EventHandler<int>>(ref _serverTaskCountChangedEvent, null, null)?.Invoke(this, count);
+            }
+            catch (Exception)
+            {
             }
         }
 
         private void OnServerError(Exception e)
         {
-            var handler = _listenerErrorEvent;
-            if (handler == null) return;
-
             try
             {
-                handler(this, e);
+                Interlocked.CompareExchange<EventHandler<Exception>>(ref _listenerErrorEvent, null, null)?.Invoke(this, e);
             }
             catch (Exception)
             {
