@@ -33,7 +33,7 @@ namespace Kalinda.Server
         private EventHandler<int> _serverTaskCountChangedEvent;
         private EventHandler<RequestCompletedEventArgs> _requestCompletedEvent;
 
-        public Func<HttpListenerContext, Task> OnRequest { get; set; }
+        private Func<HttpListenerContext, Task> _OnRequest;
 
         // Constructors
 
@@ -201,11 +201,11 @@ namespace Kalinda.Server
 
             try
             {
-                if (OnRequest != null)
+                if (_OnRequest != null)
                 {
                     var startTime = Stopwatch.GetTimestamp();
 
-                    await OnRequest(context);
+                    await _OnRequest(context);
 
                     eventArgs.RequestDurationTickCount = Stopwatch.GetTimestamp() - startTime;
                 }
@@ -270,6 +270,19 @@ namespace Kalinda.Server
         }
 
         // Events
+
+        public Func<HttpListenerContext, Task> OnRequest
+        {          
+            set
+            {
+                EnsureHttpServerState(HttpServerState.Stopped);
+
+                lock (_lockEventHandler)
+                {                   
+                    _OnRequest = value;
+                }
+            }
+        }
 
         public event EventHandler<Exception> ServerError
         {
