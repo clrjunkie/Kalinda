@@ -484,7 +484,10 @@ namespace Kalinda.Server
         {
             get
             {
-                return _maxServerTasks;
+                lock (_lock)
+                {
+                    return _maxServerTasks;
+                }
             }
             set
             {
@@ -501,7 +504,10 @@ namespace Kalinda.Server
         {
             get
             {
-                return _minServerTasks;
+                lock (_lock)
+                {
+                    return _minServerTasks;
+                }
             }
             set
             {
@@ -518,7 +524,10 @@ namespace Kalinda.Server
         {
             get
             {
-                return _listener.TimeoutManager.DrainEntityBody;
+                lock (_lock)
+                {
+                    return _listener.TimeoutManager.DrainEntityBody;
+                }
             }
             set
             {
@@ -535,7 +544,10 @@ namespace Kalinda.Server
         {
             get
             {
-                return _listener.TimeoutManager.EntityBody;
+                lock (_lock)
+                {
+                    return _listener.TimeoutManager.EntityBody;
+                }
             }
             set
             {
@@ -552,7 +564,10 @@ namespace Kalinda.Server
         {
             get
             {
-                return _listener.TimeoutManager.HeaderWait;
+                lock (_lock)
+                {
+                    return _listener.TimeoutManager.HeaderWait;
+                }
             }
             set
             {
@@ -569,7 +584,10 @@ namespace Kalinda.Server
         {
             get
             {
-                return _listener.TimeoutManager.IdleConnection;
+                lock (_lock)
+                {
+                    return _listener.TimeoutManager.IdleConnection;
+                }
             }
             set
             {
@@ -586,7 +604,10 @@ namespace Kalinda.Server
         {
             get
             {
-                return _listener.TimeoutManager.MinSendBytesPerSecond;
+                lock (_lock)
+                {
+                    return _listener.TimeoutManager.MinSendBytesPerSecond;
+                }
             }
             set
             {
@@ -603,7 +624,10 @@ namespace Kalinda.Server
         {
             get
             {
-                return _listener.TimeoutManager.RequestQueue;
+                lock (_lock)
+                {
+                    return _listener.TimeoutManager.RequestQueue;
+                }
             }
             set
             {
@@ -620,7 +644,10 @@ namespace Kalinda.Server
         {
             get
             {
-                return _httpRequestQueueLength;
+                lock (_lock)
+                {
+                    return _httpRequestQueueLength;
+                }
             }
             set
             {
