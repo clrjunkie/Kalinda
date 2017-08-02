@@ -453,12 +453,137 @@ namespace Kalinda.Server
         {
             get
             {
-                lock (_lock)
-                {
-                    return _listenerUrl;
-                }
+                return _listenerUrl;
             }
         }
+
+        public TimeSpan DrainEntityBodyTimeout
+        {
+            get
+            {
+                return _listener.TimeoutManager.DrainEntityBody;
+            }
+            set
+            {
+                EnsureHttpServerState(HttpServerState.Stopped);
+
+                _listener.TimeoutManager.DrainEntityBody = value;
+            }
+        }
+
+        public TimeSpan EntityBodyArrivalTimeout
+        {
+            get
+            {
+                return _listener.TimeoutManager.EntityBody;
+            }
+            set
+            {
+                EnsureHttpServerState(HttpServerState.Stopped);
+
+                _listener.TimeoutManager.EntityBody = value;
+            }
+        }
+
+        public TimeSpan HeaderWait
+        {
+            get
+            {
+                return _listener.TimeoutManager.HeaderWait;
+            }
+            set
+            {
+                EnsureHttpServerState(HttpServerState.Stopped);
+
+                _listener.TimeoutManager.HeaderWait = value;
+            }
+        }
+
+        public TimeSpan IdleConnectionTimeout
+        {
+            get
+            {
+                return _listener.TimeoutManager.IdleConnection;
+            }
+            set
+            {
+                EnsureHttpServerState(HttpServerState.Stopped);
+
+                _listener.TimeoutManager.IdleConnection = value;
+            }
+        }
+
+        public long MinSendBytesPerSecond
+        {
+            get
+            {
+                return _listener.TimeoutManager.MinSendBytesPerSecond;
+            }
+            set
+            {
+                EnsureHttpServerState(HttpServerState.Stopped);
+
+                _listener.TimeoutManager.MinSendBytesPerSecond = value;
+            }
+        }
+
+        public TimeSpan RequestInQueueTimeout
+        {
+            get
+            {
+                return _listener.TimeoutManager.RequestQueue;
+            }
+            set
+            {
+                EnsureHttpServerState(HttpServerState.Stopped);
+
+                _listener.TimeoutManager.RequestQueue = value;
+            }
+        }
+
+        public long HttpRequestQueueLength
+        {
+            get
+            {
+                return _httpRequestQueueLength;
+            }
+            set
+            {
+                EnsureHttpServerState(HttpServerState.Stopped);
+
+                _httpRequestQueueLength = value;
+            }
+        }
+
+        public int MaxServerTasks
+        {
+            get
+            {
+                return _maxServerTasks;
+            }
+            set
+            {
+                EnsureHttpServerState(HttpServerState.Stopped);
+
+                _maxServerTasks = value;
+            }
+        }
+
+        public int MinServerTasks
+        {
+            get
+            {
+                return _minServerTasks;
+            }
+            set
+            {
+                EnsureHttpServerState(HttpServerState.Stopped);
+
+                _minServerTasks = value;
+            }
+        }
+
+        // State
 
         public int ServerTaskCount
         {
@@ -467,186 +592,6 @@ namespace Kalinda.Server
                 lock (_lock)
                 {
                     return _totalServerTasks;
-                }
-            }
-        }
-
-        public int MaxServerTasks
-        {
-            get
-            {
-                lock (_lock)
-                {
-                    return _maxServerTasks;
-                }
-            }
-            set
-            {
-                EnsureHttpServerState(HttpServerState.Stopped);
-
-                lock (_lock)
-                {
-                    _maxServerTasks = value;
-                }
-            }
-        }
-
-        public int MinServerTasks
-        {
-            get
-            {
-                lock (_lock)
-                {
-                    return _minServerTasks;
-                }
-            }
-            set
-            {
-                EnsureHttpServerState(HttpServerState.Stopped);
-
-                lock (_lock)
-                {
-                    _minServerTasks = value;
-                }
-            }
-        }
-
-        public TimeSpan DrainEntityBodyTimeout
-        {
-            get
-            {
-                lock (_lock)
-                {
-                    return _listener.TimeoutManager.DrainEntityBody;
-                }
-            }
-            set
-            {
-                EnsureHttpServerState(HttpServerState.Stopped);
-
-                lock (_lock)
-                {
-                    _listener.TimeoutManager.DrainEntityBody = value;
-                }
-            }
-        }
-
-        public TimeSpan EntityBodyArrivalTimeout
-        {
-            get
-            {
-                lock (_lock)
-                {
-                    return _listener.TimeoutManager.EntityBody;
-                }
-            }
-            set
-            {
-                EnsureHttpServerState(HttpServerState.Stopped);
-
-                lock (_lock)
-                {
-                    _listener.TimeoutManager.EntityBody = value;
-                }
-            }
-        }
-
-        public TimeSpan HeaderWait
-        {
-            get
-            {
-                lock (_lock)
-                {
-                    return _listener.TimeoutManager.HeaderWait;
-                }
-            }
-            set
-            {
-                EnsureHttpServerState(HttpServerState.Stopped);
-
-                lock (_lock)
-                {
-                    _listener.TimeoutManager.HeaderWait = value;
-                }
-            }
-        }
-
-        public TimeSpan IdleConnectionTimeout
-        {
-            get
-            {
-                lock (_lock)
-                {
-                    return _listener.TimeoutManager.IdleConnection;
-                }
-            }
-            set
-            {
-                EnsureHttpServerState(HttpServerState.Stopped);
-
-                lock (_lock)
-                {
-                    _listener.TimeoutManager.IdleConnection = value;
-                }
-            }
-        }
-
-        public long MinSendBytesPerSecond
-        {
-            get
-            {
-                lock (_lock)
-                {
-                    return _listener.TimeoutManager.MinSendBytesPerSecond;
-                }
-            }
-            set
-            {
-                EnsureHttpServerState(HttpServerState.Stopped);
-
-                lock (_lock)
-                {
-                    _listener.TimeoutManager.MinSendBytesPerSecond = value;
-                }
-            }
-        }
-
-        public TimeSpan RequestInQueueTimeout
-        {
-            get
-            {
-                lock (_lock)
-                {
-                    return _listener.TimeoutManager.RequestQueue;
-                }
-            }
-            set
-            {
-                EnsureHttpServerState(HttpServerState.Stopped);
-
-                lock (_lock)
-                {
-                    _listener.TimeoutManager.RequestQueue = value;
-                }
-            }
-        }
-
-        public long HttpRequestQueueLength
-        {
-            get
-            {
-                lock (_lock)
-                {
-                    return _httpRequestQueueLength;
-                }
-            }
-            set
-            {
-                EnsureHttpServerState(HttpServerState.Stopped);
-
-                lock (_lock)
-                {
-                    _httpRequestQueueLength = value;
                 }
             }
         }
