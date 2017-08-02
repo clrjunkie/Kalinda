@@ -277,10 +277,7 @@ namespace Kalinda.Server
             {
                 EnsureHttpServerState(HttpServerState.Stopped);
 
-                lock (_lockEventHandler)
-                {
-                    _OnRequest = value;
-                }
+                _OnRequest = value;
             }
         }
 
@@ -288,20 +285,17 @@ namespace Kalinda.Server
         {
             add
             {
-                lock (_lockEventHandler)
-                {
-                    _listenerErrorEvent += value;
-                }
+                EnsureHttpServerState(HttpServerState.Stopped);
+
+                _listenerErrorEvent += value;
             }
             remove
             {
+                EnsureHttpServerState(HttpServerState.Stopped);
 
-                lock (_lockEventHandler)
+                if (_listenerErrorEvent != null)
                 {
-                    if (_listenerErrorEvent != null)
-                    {
-                        _listenerErrorEvent -= value;
-                    }
+                    _listenerErrorEvent -= value;
                 }
             }
         }
@@ -310,20 +304,17 @@ namespace Kalinda.Server
         {
             add
             {
-                lock (_lockEventHandler)
-                {
-                    _requestCompletedEvent += value;
-                }
+                EnsureHttpServerState(HttpServerState.Stopped);
+
+                _requestCompletedEvent += value;
             }
             remove
             {
+                EnsureHttpServerState(HttpServerState.Stopped);
 
-                lock (_lockEventHandler)
+                if (_requestCompletedEvent != null)
                 {
-                    if (_requestCompletedEvent != null)
-                    {
-                        _requestCompletedEvent -= value;
-                    }
+                    _requestCompletedEvent -= value;
                 }
             }
         }
@@ -332,32 +323,26 @@ namespace Kalinda.Server
         {
             add
             {
-                lock (_lockEventHandler)
-                {
-                    _serverTaskCountChangedEvent += value;
-                }
+                EnsureHttpServerState(HttpServerState.Stopped);
+
+                _serverTaskCountChangedEvent += value;
             }
             remove
             {
+                EnsureHttpServerState(HttpServerState.Stopped);
 
-                lock (_lockEventHandler)
+                if (_serverTaskCountChangedEvent != null)
                 {
-                    if (_serverTaskCountChangedEvent != null)
-                    {
-                        _serverTaskCountChangedEvent -= value;
-                    }
+                    _serverTaskCountChangedEvent -= value;
                 }
             }
         }
-
-        // Synchronization and Multiprocessor Issues
-        // https://msdn.microsoft.com/en-us/library/windows/desktop/ms686355(v=vs.85).aspx
 
         private void OnRequestCompleted(RequestCompletedEventArgs e)
         {
             try
             {
-                Interlocked.CompareExchange<EventHandler<RequestCompletedEventArgs>>(ref _requestCompletedEvent, null, null)?.Invoke(this, e);
+                _requestCompletedEvent?.Invoke(this, e);
             }
             catch (Exception)
             {
@@ -368,7 +353,7 @@ namespace Kalinda.Server
         {
             try
             {
-                Interlocked.CompareExchange<EventHandler<int>>(ref _serverTaskCountChangedEvent, null, null)?.Invoke(this, count);
+                _serverTaskCountChangedEvent?.Invoke(this, count);
             }
             catch (Exception)
             {
@@ -379,7 +364,7 @@ namespace Kalinda.Server
         {
             try
             {
-                Interlocked.CompareExchange<EventHandler<Exception>>(ref _listenerErrorEvent, null, null)?.Invoke(this, e);
+                _listenerErrorEvent?.Invoke(this, e);
             }
             catch (Exception)
             {
