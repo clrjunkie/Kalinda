@@ -206,8 +206,9 @@ namespace Kalinda.Server
                     var startTime = Stopwatch.GetTimestamp();
 
                     await _OnRequest(context);
-
+                    
                     eventArgs.RequestDurationTickCount = Stopwatch.GetTimestamp() - startTime;
+                    eventArgs.Url = context.Request.Url;
                 }
             }
             catch (HttpListenerException)
